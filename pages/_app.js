@@ -2,6 +2,7 @@
 import '../styles/globals.css';
 import { useRouter } from 'next/router';
 import { useEffect, useState, createContext } from 'react';
+import { Analytics } from '@vercel/analytics/react'; // Correctly imported
 
 // Create theme context
 export const ThemeContext = createContext();
@@ -28,7 +29,7 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       console.log(`Mapsd to: ${url}`);
-      // You could send this to analytics
+      // Vercel Analytics will handle tracking automatically once the component is rendered.
     };
     
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -63,6 +64,7 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeContext.Provider value={{ theme, setTheme, user, setUser }}>
       <Component {...pageProps} />
+      <Analytics /> {/* <-- This is the missing line to render the component */}
     </ThemeContext.Provider>
   );
 }
