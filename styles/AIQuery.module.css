@@ -1,0 +1,226 @@
+/* styles/AIQuery.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/hero-bg-ai.jpg") center/cover no-repeat;
+  padding: 80px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: auto;
+}
+
+.heroText h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.heroText p {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(to right, #00c9ff, #92fe9d);
+  color: #000;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 5px 15px rgba(146, 254, 157, 0.4);
+  border: none;
+}
+
+.ctaButton:hover,
+.ctaButton:focus {
+  background: linear-gradient(to right, #92fe9d, #00c9ff);
+  outline: none;
+  box-shadow: 0 5px 20px rgba(146, 254, 157, 0.7);
+}
+
+.aiQuerySection {
+  flex-grow: 1;
+  max-width: 700px;
+  margin: 50px auto 70px;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px var(--shadow-dark);
+  text-align: center;
+}
+
+body.light .aiQuerySection {
+  background: var(--card-bg-light);
+  box-shadow: 0 0 20px var(--shadow-light);
+  color: var(--text-color-light);
+}
+
+body.dark .aiQuerySection {
+  background: var(--card-bg-dark);
+  box-shadow: 0 0 20px var(--shadow-dark);
+  color: var(--text-color-dark);
+}
+
+.aiQuerySection h2 {
+  font-weight: 700;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.queryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--primary);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+body.light .formGroup input {
+  background: #fdfdfd;
+  color: var(--text-color-light);
+}
+
+body.dark .formGroup input {
+  background: #33334d;
+  color: var(--text-color-dark);
+}
+
+.formGroup input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+.formGroup input:focus {
+  outline: none;
+  box-shadow: 0 0 8px var(--primary);
+  border-color: var(--accent);
+}
+
+.submitButton {
+  padding: 12px 30px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(110, 69, 226, 0.3);
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.responseCard {
+  background: var(--card-bg-light);
+  padding: 25px;
+  border-radius: 10px;
+  margin-top: 30px;
+  text-align: left;
+  line-height: 1.7;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .responseCard {
+  background: var(--card-bg-dark);
+  box-shadow: 0 5px 15px var(--shadow-dark);
+}
+
+.responseCard h3 {
+  color: var(--accent);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.responseText {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--dark);
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: auto;
+}
+
+body.dark .footer {
+  background: #0f0c29;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px;
+  }
+  .heroText h1 {
+    font-size: 2.2rem;
+  }
+  .heroText p {
+    font-size: 1.1rem;
+  }
+  .aiQuerySection {
+    margin: 30px auto 50px;
+    padding: 20px;
+  }
+  .aiQuerySection h2 {
+    font-size: 1.8rem;
+  }
+  .submitButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  .responseCard {
+    padding: 20px;
+  }
+  .responseCard h3 {
+    font-size: 1.2rem;
+  }
+}

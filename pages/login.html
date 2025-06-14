@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMENDROP - Login</title>
+    <link rel="icon" type="image/png" href="assest/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+        /* --- Base and Body Styles --- */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: black;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Background Video */
+        video.bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100vw;
+            min-height: 100vh;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Fill background, no black bars */
+            filter: brightness(0.5);
+            background: black; /* Fill letterbox/pillarbox with black */
+        }
+
+        /* Hero Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            color: white;
+            max-width: 700px;
+            margin-left: 50px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .animated-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .animated-title .title-line-wrapper {
+            display: block;
+            overflow: hidden;
+        }
+        .animated-title .title-word {
+            display: inline-block;
+        }
+        .content p {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem; /* Reduced from 2rem to move button up */
+            max-width: 450px;
+        }
+
+        /* --- Button Placeholder Style --- */
+        /* This style is for the container of the Google button.
+           Google's button has its own styling, but you can control container size/margin. */
+        #google-signin-button-container {
+            margin-top: 5px; /* Reduced from 20px to move button up */
+            display: inline-block; /* To respect text-align if container is centered */
+            /* You might want to ensure its width/height accommodates the Google button */
+        }
+
+
+        /* --- Slide-in-Up Animation Styles (Initial state) --- */
+        .content > .animated-title .title-word,
+        .content > p,
+        #google-signin-button-container { /* Apply animation to the button container */
+            opacity: 0;
+            transform: translateY(40px);
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.6s ease-out;
+            will-change: transform, opacity;
+        }
+
+        /* Visible animation state */
+        .content.is-visible > .animated-title .title-word,
+        .content.is-visible > p,
+        .content.is-visible > #google-signin-button-container {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays */
+        .content.is-visible .animated-title .title-line-wrapper:nth-child(1) .title-word {
+            transition-delay: 0.1s;
+        }
+        .content.is-visible .animated-title .title-line-wrapper:nth-child(2) .title-word {
+            transition-delay: 0.25s;
+        }
+        .content.is-visible > p {
+            transition-delay: 0.4s;
+        }
+        .content.is-visible > #google-signin-button-container {
+            transition-delay: 0.55s;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content { margin-left: 20px; max-width: 90%; }
+            .animated-title { font-size: 3rem; }
+            .content p { font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .animated-title { font-size: 2.5rem; }
+            .content { margin-left: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="content">
+            <h1 class="animated-title" aria-label="LUMENDROP">
+                <span class="title-line-wrapper">
+                    <span class="title-word">Unlock Daily Learning with</span>
+                </span>
+                <span class="title-line-wrapper">
+                    <span class="title-word">LUMENDROP!</span>
+                </span>
+            </h1>
+            <p>One Minute. One Lesson. Every Day.</p>
+
+            <div id="google-signin-button-container">
+                </div>
+        </div>
+    </section>
+
+    <script>
+        // Function to handle the credential response from Google
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // **IMPORTANT:** Send this 'response.credential' (ID token) to your backend server
+            // Your backend server must verify the token with Google, extract user information,
+            // and then create a session or log the user into your application.
+            // Example:
+            // fetch('/auth/google', {
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json',
+            //   },
+            //   body: JSON.stringify({ token: response.credential }),
+            // })
+            // .then(res => res.json())
+            // .then(data => {
+            //   // Handle successful login on client-side (e.g., redirect to dashboard)
+            //   console.log('Login successful:', data);
+            //   window.location.href = '/dashboard'; // Or whatever your next page is
+            // })
+            // .catch(console.error);
+
+            // For now, just showing an alert for demonstration
+            alert("Sign-in successful (check console for ID token). Backend verification needed!");
+        }
+
+        // Function to initialize Google Sign-In
+        function initializeGoogleSignIn() {
+            if (typeof google === 'undefined' || typeof google.accounts === 'undefined') {
+                // Google library not loaded yet, retry shortly
+                setTimeout(initializeGoogleSignIn, 100);
+                return;
+            }
+
+            google.accounts.id.initialize({
+                client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com', // <-- REPLACE WITH YOUR CLIENT ID
+                callback: handleCredentialResponse // Function to handle the response
+            });
+
+            // Render the Google Sign-In button
+            google.accounts.id.renderButton(
+                document.getElementById('google-signin-button-container'), // Target container element
+                {
+                    theme: "outline", // "outline", "filled_blue", "filled_black"
+                    size: "large",    // "large", "medium", "small"
+                    type: "standard", // "standard", "icon"
+                    shape: "pill",  // "rectangular", "pill", "circle", "square"
+                    text: "signin_with", // "signin_with", "signup_with", "continue_with", "signin"
+                    logo_alignment: "left", // "left", "center"
+                    width: "280" // Optional: specify a width in pixels (e.g., "280")
+                }
+            );
+
+            // Optional: Display the One Tap prompt
+            // google.accounts.id.prompt();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentElement = document.querySelector('.content');
+            if (contentElement) {
+                setTimeout(() => {
+                    contentElement.classList.add('is-visible');
+                }, 100);
+            }
+
+            // Initialize Google Sign-In once the DOM is ready and GIS library is expected to be loaded
+            initializeGoogleSignIn();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentElement = document.querySelector('.content');
+            if (contentElement) {
+                setTimeout(() => {
+                    contentElement.classList.add('is-visible');
+                }, 100);
+            }
+
+            // Initialize Google Sign-In once the DOM is ready and GIS library is expected to be loaded
+            initializeGoogleSignIn();
+
+            // Prevent context menu on the background video
+            const bgVideo = document.querySelector('.bg-video');
+            if (bgVideo) {
+                bgVideo.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+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
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDfy_Mv-tAXO7_E5512WLAYjoKcDKR29go",
+  authDomain: "lumendrop-1fa7b.firebaseapp.com",
+  projectId: "lumendrop-1fa7b",
+  storageBucket: "lumendrop-1fa7b.firebasestorage.app",
+  messagingSenderId: "541976085345",
+  appId: "1:541976085345:web:4e86b473c66947d2d63b20",
+  measurementId: "G-8YVM01L7CT"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

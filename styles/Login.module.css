@@ -1,0 +1,116 @@
+/* styles/Login.module.css */
+
+/* --- Base and Body Styles --- */
+/* Next.js often handles body styles in `pages/_app.js` or global.css.
+   If these are global, consider putting them in `styles/globals.css`.
+   For now, we'll keep them here for direct translation. */
+
+
+/* --- Hero Section --- */
+.hero { /* Changed to .hero from #hero */
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Background Video */
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Fill background, no black bars */
+    filter: brightness(0.5);
+    background: black; /* Fill letterbox/pillarbox with black */
+}
+
+/* Hero Content */
+.content {
+    position: relative;
+    z-index: 10;
+    color: white;
+    max-width: 700px;
+    margin-left: 50px;
+    padding: 20px;
+    text-align: left;
+}
+
+.animated-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+.animated-title .title-line-wrapper {
+    display: block;
+    overflow: hidden;
+}
+.animated-title .title-word {
+    display: inline-block;
+}
+.content p {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem; /* Reduced from 2rem to move button up */
+    max-width: 450px;
+}
+
+/* --- Button Placeholder Style --- */
+#google-signin-button-container { /* Kept ID as it's targeted by GSI script */
+    margin-top: 5px; /* Reduced from 20px to move button up */
+    display: inline-block;
+}
+
+/* --- Slide-in-Up Animation Styles (Initial state) --- */
+/* Using :global to target elements outside the module scope if needed,
+   or just directly targeting children of .content which is part of the module. */
+.content > .animated-title .title-word,
+.content > p,
+#google-signin-button-container {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.6s ease-out;
+    will-change: transform, opacity;
+}
+
+/* Visible animation state */
+.content.is-visible > .animated-title .title-word,
+.content.is-visible > p,
+.content.is-visible > #google-signin-button-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays */
+.content.is-visible .animated-title .title-line-wrapper:nth-child(1) .title-word {
+    transition-delay: 0.1s;
+}
+.content.is-visible .animated-title .title-line-wrapper:nth-child(2) .title-word {
+    transition-delay: 0.25s;
+}
+.content.is-visible > p {
+    transition-delay: 0.4s;
+}
+.content.is-visible > #google-signin-button-container {
+    transition-delay: 0.55s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content { margin-left: 20px; max-width: 90%; }
+    .animated-title { font-size: 3rem; }
+    .content p { font-size: 1rem; }
+}
+@media (max-width: 480px) {
+    .animated-title { font-size: 2.5rem; }
+    .content { margin-left: 15px; }
+}
